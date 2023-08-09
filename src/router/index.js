@@ -1,20 +1,73 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
+// Journals
+import JournalLibrary from "../views/Journal/LibraryView.vue";
+import JournalTOC from "../views/Journal/TOCView.vue";
+
+// Quotes
+import Quotes from "../views/Quotes/QuoteList.vue";
+
+// Bookmarks
+import Bookmarks from "../views/Bookmarks/BookmarkList.vue";
+
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+    meta: {
+      title: "Daily Organizer",
+      color: "#B3D9BE",
+      hideInNav: false,
+    },
+  },
+
+  // Journal(s) routes
+  {
+    path: "/journals",
+    name: "journals",
+    component: JournalLibrary,
+    meta: {
+      title: "Journal Library",
+      hideInNav: true,
+    },
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/journal/:id/TOC",
+    name: "journalTOC",
+    component: JournalTOC,
+    meta: {
+      title: "Table of Contents",
+      hideInNav: true,
+    },
+  },
+  {
+    path: "/journal/:id/quotes",
+    name: "journalQuotes",
+    component: Quotes,
+    meta: {
+      title: "My Quotes",
+      hideInNav: true,
+    },
+  },
+  {
+    path: "/quotes",
+    name: "altQuotes",
+    component: Quotes,
+    meta: {
+      title: "Quotes",
+      hideInNav: true,
+    },
+  },
+  {
+    path: "/journal/:id/bookmarks",
+    name: "journalBookmarks",
+    component: Bookmarks,
+    meta: {
+      title: "Bookmarks",
+      hideInNav: true,
+    },
   },
 ];
 

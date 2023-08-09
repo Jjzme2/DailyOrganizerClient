@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import BaseView from "./BaseView.vue";
-import dashboard from "@/components/mainElements/app/dashboards/dashboardApp.vue";
+import BaseView from "../BaseView.vue";
+import dashboard from "@/components/mainElements/app/dashboards/dashboardJournal.vue";
 
 export default {
-  name: "HomeView",
+  name: "JournalView",
   components: {
     BaseView,
     dashboard,
