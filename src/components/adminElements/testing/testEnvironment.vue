@@ -22,28 +22,27 @@
 import theSelector from "@/components/mainElements/base/TheSelector.vue";
 
 // Import Test components here:
-import financeListTableVue from "../tables/financeListTable.vue";
-import resizablePanel from "@/components/mainElements/panels/ThePanel.vue";
+import testComponent from "@/components/adminElements/testing/testComponent.vue";
+import bookmarkForm from "@/components/mainElements/app/componentsBookmark/BookmarkForm.vue";
 
 export default {
   name: "TestEnvironment",
   components: {
     theSelector,
     // Tests
-    financeListTableVue,
-    resizablePanel,
+    testComponent,
   },
   data() {
     return {
       // Break this into different stages: Broken,In Progress,Testing,etc.
       testOptions: [
         {
-          value: financeListTableVue,
-          message: "Financial Table(Income)",
+          value: testComponent,
+          message: "Test Component",
         },
         {
-          value: resizablePanel,
-          message: "Resizable Panel",
+          value: bookmarkForm,
+          message: "Bookmark Form",
         },
       ],
       selected: "",

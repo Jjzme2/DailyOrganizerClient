@@ -20,7 +20,6 @@ export default {
   },
   computed: {
     journalId() {
-      console.log(`Id From Route--${this.$route.params.id}`);
       return this.$route.params.id;
     },
   },

@@ -1,26 +1,6 @@
 <template>
   <div class="journal-toc">
     <h2 class="toc-title">Table of Contents</h2>
-    <div id="toc-search" class="toc-option">
-      <input
-        type="text"
-        v-model="search"
-        placeholder="Search"
-        ref="searchInput"
-      />
-      <input
-        type="button"
-        class="cstm-btn-primary"
-        value="Search"
-        @click="searchTableOfContents"
-      />
-      <input
-        type="button"
-        class="cstm-btn-secondary"
-        value="Clear"
-        @click="clearSearch"
-      />
-    </div>
     <div div id="toc-add" class="toc-option">
       <select v-model="sectionToAdd" ref="sectionSelect">
         <option value="" disabled selected hidden>
@@ -37,9 +17,9 @@
 
       <input
         type="button"
-        value="Add Section"
+        value="Add Entry"
         class="cstm-btn-primary"
-        @click="addSection"
+        @click="addEntry"
       />
     </div>
     <div class="toc-divider"></div>
@@ -54,6 +34,7 @@
 <script>
 import { useStore } from "vuex";
 import { onMounted, computed, ref } from "vue";
+import { useRouter } from "vue-router";
 
 import stringHelper from "@/assets/util/stringManipulation.js";
 
@@ -67,6 +48,8 @@ export default {
   },
   setup(props) {
     const store = useStore();
+    const router = useRouter();
+
     const search = ref("");
     const sectionToAdd = ref("");
     const availableSections = [
@@ -99,13 +82,19 @@ export default {
       store.dispatch("journals/fetchTableOfContents", props.id);
     };
 
-    const addSection = () => {
-      if (sectionToAdd.value) {
-        store.dispatch("journals/addSection", {
+    const addEntry = () => {
+      if (!sectionToAdd.value) {
+        alert("Please select a section to add an entry to.");
+        return;
+      }
+      console.log("Adding entry to section:", sectionToAdd.value);
+      router.push({
+        name: "creationForm",
+        params: {
           id: props.id,
           section: sectionToAdd.value,
-        });
-      }
+        },
+      });
     };
 
     const tableOfContents = computed(() => {
@@ -128,7 +117,7 @@ export default {
       tableOfContents,
       searchTableOfContents,
       clearSearch,
-      addSection,
+      addEntry,
     };
   },
 };

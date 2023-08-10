@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
+// Forms
+
 // Journals
 import JournalLibrary from "../views/Journal/LibraryView.vue";
 import JournalTOC from "../views/Journal/TOCView.vue";
@@ -12,6 +14,16 @@ import Quotes from "../views/Quotes/QuoteList.vue";
 import Bookmarks from "../views/Bookmarks/BookmarkList.vue";
 
 const routes = [
+  {
+    path: "/testing",
+    name: "testing",
+    component: () => import("../views/TestingView.vue"),
+    meta: {
+      title: "Testing",
+      color: "#FF0000",
+      hideInNav: false,
+    },
+  },
   {
     path: "/",
     name: "home",

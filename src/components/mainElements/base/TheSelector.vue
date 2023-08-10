@@ -2,33 +2,27 @@
   <div class="select-form" :class="themes">
     <label v-if="label" for="customSelectMenu">{{ label }}</label>
 
-    <select
-      id="customSelectMenu"
-      v-model="selected"
-      @change="
-        $emit('selectionMade', selected)
-        // message();
-      "
-    >
+    <select id="customSelectMenu" v-model="selected" @change="emitSelection">
       <option :value="0" disabled>
         {{ selectionOptions.defaultMessage }}
       </option>
 
-      <option v-for="o in selectionOptions.options" :key="o" :value="o.value">
-        {{ o.message }}
+      <option
+        v-for="option in selectionOptions.options"
+        :key="option.value"
+        :value="option.value"
+      >
+        {{ option.message }}
       </option>
     </select>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   name: "TheSelector",
-  data() {
-    return {
-      selected: "0",
-    };
-  },
   props: {
     selectionOptions: {
       type: Object,
@@ -40,49 +34,39 @@ export default {
         ],
       }),
     },
-    label: {
-      type: String,
-      default: null,
-    },
-    themes: {
-      type: String,
-      default: "",
-    },
+    label: String,
+    themes: String,
   },
-  mounted() {
-    console.log(`Selected options: ${JSON.stringify(this.selectionOptions)}`);
-  },
-  methods: {
-    message() {
-      const message = {
-        messageTitle: "TheSelector.vue.",
-        messageDetail:
-          "You're emitting a message. You can call it with `@selectionMade='showSelected'`.",
-        messageContent:
-          "@selectionMade='(e) => setComponent(e)' label='someLabel' themes='comfy column' :options='options'",
-        messageLevel: "info",
-        messageData: JSON.stringify(this.selectionOptions),
-      };
-      console.table(message);
-    },
+  setup(props, { emit }) {
+    const selected = ref("0");
+
+    const emitSelection = () => {
+      console.log("Emitting selection:", selected.value);
+      emit("selectionMade", selected.value);
+    };
+
+    return {
+      selected,
+      emitSelection,
+    };
   },
 };
 </script>
 
 <style scoped>
-.comfy {
+.select-form {
   display: flex;
   align-items: center;
   padding: 0.5em;
   width: 100%;
 }
 
-.comfy label {
+.select-form label {
   font-size: 1.5em;
   font-weight: bold;
 }
 
-.comfy select {
+.select-form select {
   font-size: 1.25em;
   font-weight: bold;
   padding: 0.25em;
